@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form>
+    <form @submit.prevent="sendForm">
 
       <h3>Name & describe your event</h3>
 
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -90,6 +92,22 @@ export default {
         { label: 'Yes', value: 1 },
         { label: 'No', value: 0 }
       ]
+    }
+  },
+  methods: {
+    sendForm () {
+      axios
+        .post(
+          'https://my-json-server.typicode.com/Code-Pop/Vue-3-Forms/events',
+          this.event
+        )
+        .then(function (response) {
+          console.log('Responsive', response)
+        })
+        .catch(function (err) {
+          console.log('Error', err)
+        }
+        )
     }
   }
 }
