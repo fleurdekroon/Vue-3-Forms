@@ -3,57 +3,66 @@
     <h1>Create an event</h1>
     <form @submit.prevent="sendForm">
 
-      <h3>Name & describe your event</h3>
-
       <BaseSelect
         :options="categories"
         v-model="event.category"
         label="Select a category"
       />
 
-      <BaseInput
-        v-model="event.title"
-        label="Title"
-        type="text"
-      />
+      <fieldset>
+        <legend>Name & describe your event</legend>
 
-      <BaseInput
-        v-model="event.description"
-        label="Description"
-        type="text"
-      />
-
-      <h3>Where is your event?</h3>
-
-      <BaseInput
-        v-model="event.location"
-        label="Location"
-        type="text"
-      />
-
-      <h3>Are pets allowed?</h3>
-      <div>
-        <BaseRadioGroup
-          v-model="event.pets"
-          name="pets"
-          :options="petOptions"
+        <BaseInput
+          v-model="event.title"
+          label="Title"
+          type="text"
+          error="This input has an error"
         />
-      </div>
 
-      <h3>Extras</h3>
-      <div>
-        <BaseCheckbox
-          label="Catering"
-          v-model="event.extras.catering"
+        <BaseInput
+          v-model="event.description"
+          label="Description"
+          type="text"
         />
-      </div>
+      </fieldset>
 
-      <div>
-        <BaseCheckbox
-          label="Live music"
-          v-model="event.extras.music"
+      <fieldset>
+        <legend>Where is your event?</legend>
+
+        <BaseInput
+          v-model="event.location"
+          label="Location"
+          type="text"
         />
-      </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Pets</legend>
+        <p>Are pets allowed?</p>
+        <div>
+          <BaseRadioGroup
+            v-model="event.pets"
+            name="pets"
+            :options="petOptions"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Extras</legend>
+        <div>
+          <BaseCheckbox
+            label="Catering"
+            v-model="event.extras.catering"
+          />
+        </div>
+        <div>
+          <BaseCheckbox
+            label="Live music"
+            v-model="event.extras.music"
+            />
+        </div>
+      </fieldset>
 
       <button type="submit">Submit</button>
     </form>
@@ -106,9 +115,22 @@ export default {
         })
         .catch(function (err) {
           console.log('Error', err)
-        }
-        )
+        })
     }
   }
 }
 </script>
+
+<style>
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  legend {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+</style>
